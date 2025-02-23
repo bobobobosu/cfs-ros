@@ -1,13 +1,13 @@
 {
     "julia": "1.11.3",
     "packages": {
-        "BoTrajOpt": {
+        "CFSTrajOpt": {
             "uuid": "32dd75fc-e3d1-4e87-b4da-0bc97ceec867",
-            "path": "/mnt/storage/robot-trajopt"
+            "url": "https://github.com/bobobobosu/CFSTrajOpt.jl.git"
         },
         "CFSRos": {
             "uuid": "38ba9065-c696-4fc1-9a57-0c3d20bbeaf0",
-            "path": "../../CFSRos"
+            "url": "https://github.com/bobobobosu/CFSRos.jl.git"
         }
     }
 }

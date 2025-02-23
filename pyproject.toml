@@ -5,12 +5,12 @@ build-backend = "setuptools.build_meta" # If not defined, then legacy behavior c
 
 [project]
 name = "cfs-ros" # REQUIRED, is the only field that cannot be marked as dynamic.
-version = "0.0.0" # REQUIRED, although can be dynamic
+version = "0.0.1" # REQUIRED, although can be dynamic
 description = "CFS Planner for ROS"
 
 readme = "README.md"
 
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 
 license = { file = "LICENSE.txt" }
 
