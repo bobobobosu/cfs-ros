@@ -50,7 +50,7 @@ class ExamplePlanningNode(Node):
 
         # # try joint constraints
         # joint_names = ["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]
-        # joint_positions = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        # joint_positions = [0.0, -1.57, -1.57, 0.0, 0.0, 0.0]
         # for joint_name, joint_position in zip(joint_names, joint_positions):
         #     joint_constraint = JointConstraint()
         #     joint_constraint.joint_name = joint_name
@@ -61,14 +61,14 @@ class ExamplePlanningNode(Node):
         position_constraint = PositionConstraint()
         position_constraint.link_name = "tool0"
         position_constraint.header.frame_id = "base_link"
-        position_constraint.target_point_offset.x = -0.11283
-        position_constraint.target_point_offset.y = -0.55518
-        position_constraint.target_point_offset.z = 0.52482
+        position_constraint.target_point_offset.x = 0.0
+        position_constraint.target_point_offset.y = -0.2
+        position_constraint.target_point_offset.z = 0.0
         position_constraint.constraint_region.primitives = [
             SolidPrimitive()
         ]
         position_constraint.constraint_region.primitives[0].type = SolidPrimitive.BOX
-        position_constraint.constraint_region.primitives[0].dimensions = [0.01, 0.01, 0.01]
+        position_constraint.constraint_region.primitives[0].dimensions = [0.001, 0.001, 0.001]
         position_constraint.constraint_region.primitive_poses = [
             Pose()
         ]

@@ -1,0 +1,5 @@
+{
+    "julia.executablePath": "~/miniforge3/bash/envs/ros_env/julia_env/pyjuliapkg/install/bin/julia",
+    "julia.environmentPath": "~/miniforge3/bash/envs/ros_env/julia_env/",
+    "editor.wordWrap": "on",
+}

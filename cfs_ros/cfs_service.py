@@ -14,12 +14,17 @@ from moveit_msgs.msg import MotionPlanRequest, RobotState
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 import numpy as np
+import tempfile
 
+import re
 import os
-import sys
+from ament_index_python.packages import (
+    get_package_share_directory,
+    PackageNotFoundError
+)
 
 os.environ["JULIA_NUM_THREADS"] = "1"
-jl.include("cfslib/cfslib.jl")
+jl.include("julia/CFSRos.jl")
 
 def plan(jl_setup, motion_plan_request):
     # check goal type
@@ -46,7 +51,7 @@ def plan(jl_setup, motion_plan_request):
             goal_joint_positions = np.array(
                 [x.position for x in goal_constraint.joint_constraints]
             )
-            return jl.plan_motion_joint(
+            return jl.CFSRos.plan_motion_joint(
                 jl_setup,
                 start_joint_names,
                 start_joint_positions,
@@ -67,15 +72,17 @@ def plan(jl_setup, motion_plan_request):
                 # not supported
                 return None
 
+            frame_id = pos_constraint.header.frame_id
             goal_link_name = str(pos_constraint.link_name)
             goal_pos = pos_constraint.target_point_offset
             goal_pos = np.array([goal_pos.x, goal_pos.y, goal_pos.z])
             goal_ori = ori_constraint.orientation
             goal_ori = np.array([goal_ori.w, goal_ori.x, goal_ori.y, goal_ori.z])
-            return jl.plan_motion_cart(
+            return jl.CFSRos.plan_motion_cart(
                 jl_setup,
                 start_joint_names,
                 start_joint_positions,
+                frame_id,
                 goal_link_name,
                 goal_pos,
                 goal_ori,
@@ -100,7 +107,7 @@ class CFSClient(Node):
         )
         self.get_logger().info("MotionPlanRequest server is ready.")
 
-        self.jl_setup = jl.robotsetup_setup(self.get_urdf())
+        self.jl_setup = jl.CFSRos.robotsetup_setup(self.get_urdf())
         self.get_logger().info("CFSClient is ready.")
 
     def get_urdf(self):
@@ -110,7 +117,24 @@ class CFSClient(Node):
         # wait for the future to be done
         rclpy.spin_until_future_complete(self, self.future)
         params = self.future.result()
-        return params.values[0].string_value
+        urdf_string = params.values[0].string_value
+        pattern = r'package://([^/]+)(.*)'
+        def replacer(match):
+            pkg_name = match.group(1)
+            relative_path = match.group(2)  # includes the leading '/'
+            try:
+                pkg_share = get_package_share_directory(pkg_name)
+                return os.path.join(pkg_share, relative_path.lstrip('/'))
+            except PackageNotFoundError:
+                # If not found, just return the original string or handle it
+                self.get_logger().warn(f"Package '{pkg_name}' not found; leaving reference unchanged.")
+                return match.group(0)  # 'package://pkg_name/...'
+        urdf_string = re.sub(pattern, replacer, urdf_string)
+        # save urdf_string to temporary file
+        temp_file = tempfile.NamedTemporaryFile(delete=False)
+        with open(temp_file.name, 'w') as f:
+            f.write(urdf_string)
+        return temp_file.name
 
     def plan_callback(self, request, response):
         """Handles motion planning requests"""

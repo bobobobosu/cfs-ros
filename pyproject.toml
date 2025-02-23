@@ -35,4 +35,4 @@ cfs_ros = "cfs_ros:main"
 packages = ["cfs_ros"]  # Only include the actual Python package
 
 [tool.setuptools.package-data]
-"cfs_ros" = ["cfslib/*.jl", "juliapkg.json"]
+cfs_ros = ["julia/*.jl", "juliapkg.json"]

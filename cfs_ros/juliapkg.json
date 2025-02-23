@@ -1,0 +1,12 @@
+{
+    "julia": "1.11.3",
+    "packages": {
+        "BoTrajOpt": {
+            "path": "/mnt/storage/robot-trajopt",
+            "uuid": "32dd75fc-e3d1-4e87-b4da-0bc97ceec867"
+        },
+        "PrecompileTools": {
+            "uuid": "aea7be01-6a6a-4083-8856-8a6e6704d82a"
+        }
+    }
+}
