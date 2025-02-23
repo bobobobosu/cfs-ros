@@ -1,3 +1,5 @@
+import os
+os.environ["PYTHON_JULIACALL_HANDLE_SIGNALS"] = "yes"
 from .cfs_service import run_node
 def main():
     print("CFSClient is ready.")

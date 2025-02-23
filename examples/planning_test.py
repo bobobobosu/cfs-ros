@@ -61,9 +61,9 @@ class ExamplePlanningNode(Node):
         position_constraint = PositionConstraint()
         position_constraint.link_name = "tool0"
         position_constraint.header.frame_id = "base_link"
-        position_constraint.target_point_offset.x = 0.0
-        position_constraint.target_point_offset.y = -0.2
-        position_constraint.target_point_offset.z = 0.0
+        position_constraint.target_point_offset.x = 0.3
+        position_constraint.target_point_offset.y = 0.3
+        position_constraint.target_point_offset.z = -0.3
         position_constraint.constraint_region.primitives = [
             SolidPrimitive()
         ]

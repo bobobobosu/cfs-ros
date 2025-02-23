@@ -24,7 +24,8 @@ from ament_index_python.packages import (
 )
 
 os.environ["JULIA_NUM_THREADS"] = "1"
-jl.include("julia/CFSRos.jl")
+# jl.include("julia/CFSRos.jl")
+jl.seval('using CFSRos')
 
 def plan(jl_setup, motion_plan_request):
     # check goal type

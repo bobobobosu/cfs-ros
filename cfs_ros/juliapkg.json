@@ -2,11 +2,12 @@
     "julia": "1.11.3",
     "packages": {
         "BoTrajOpt": {
-            "path": "/mnt/storage/robot-trajopt",
-            "uuid": "32dd75fc-e3d1-4e87-b4da-0bc97ceec867"
+            "uuid": "32dd75fc-e3d1-4e87-b4da-0bc97ceec867",
+            "path": "/mnt/storage/robot-trajopt"
         },
-        "PrecompileTools": {
-            "uuid": "aea7be01-6a6a-4083-8856-8a6e6704d82a"
+        "CFSRos": {
+            "uuid": "38ba9065-c696-4fc1-9a57-0c3d20bbeaf0",
+            "path": "../../CFSRos"
         }
     }
 }
