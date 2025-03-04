@@ -10,7 +10,7 @@ A ROS package implementing Convex Feasible Set (CFS) and Slack Convex Feasible S
 - Critical kinematics and dynamics algorithms are jit-compiled for performance
 - MoveIt! Compatible Constraints:
   - Start and goal configurations
-  - Start and goal cartesian poses
+  - Goal cartesian poses
 - Generated trajectories respects the following constraints specified in the URDF:
   - Joint limits
   - Obstacle avoidance
